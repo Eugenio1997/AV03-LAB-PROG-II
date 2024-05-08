@@ -1,9 +1,10 @@
+import sqlite3
 from faker import Faker
 from src.enums.car_types import CarType
 
 
 
-def seeder(conn, cursor):
+def seeder(conn: sqlite3.Connection, cursor: sqlite3.Cursor):
     """
         Funcão para popular o banco de dados com dados falsos
     """
@@ -61,10 +62,10 @@ def create_and_populate_all_tables(cursor) -> None:
     
 def apply_migrations_and_mark_seeded_on_config_table(conn, cursor) -> None:
     create_and_populate_all_tables(cursor)
-    mark_seeded(conn, cursor)
+    mark_seeded(cursor)
     conn.commit()
         
-def is_seeded(conn, cursor):
+def is_seeded(conn: sqlite3.Connection, cursor: sqlite3.Cursor):
 
     try: ## vai ser executado a partir da segunda vez que o programa for executado
         # Verifica se a flag seeded está definida na base de dados
@@ -77,7 +78,7 @@ def is_seeded(conn, cursor):
         apply_migrations_and_mark_seeded_on_config_table(conn, cursor)
         return False
 
-def mark_seeded(conn, cursor):
+def mark_seeded(cursor: sqlite3.Cursor):
     # Define a flag seeded na base de dados
     cursor.execute("UPDATE configuration SET seeded = 1")
     
