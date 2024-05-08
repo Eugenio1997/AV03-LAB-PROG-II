@@ -23,6 +23,20 @@ O projeto consiste em um sistema de gerenciamento de carros, onde os usuários p
 - Listar carros cadastrados.
 - Recuperar carro por ID
 
+## Instalação
+
+1. Clone o repositório para o seu computador:
+
+   - git clone https://github.com/Eugenio1997/AV03-LAB-PROG2.git
+  
+
+2. Navegue até o diretório do projeto:
+
+   - cd AV03-LAB-PROG2
+
+3. Execute o programa:
+
+   - python main.py
 
 ## Como Usar
 
