@@ -42,24 +42,24 @@ Ao executar o programa, siga as instruções exibidas no console para realizar a
 
 1- Qual é o tipo do carro ?
 
-    - Sedan (1)
-    - Hatchback (2)
-    - SUV (3)
-    - Picape (4)
-    - Minivan (5)
-    - Esportivo (6)
+  - Sedan (1)
+  - Hatchback (2)
+  - SUV (3)
+  - Picape (4)
+  - Minivan (5)
+  - Esportivo (6)
 
 2- Qual é a potência do carro ?
   
-    - <Entrada-do-usuário>
+  - <Entrada-do-usuário>
 
 3- Qual é o ano do carro ?
 
-    - <Entrada-do-usuário>
+  - <Entrada-do-usuário>
 
 4- Quantas portas o carro possui ?
 
-    - <Entrada-do-usuário>
+  - <Entrada-do-usuário>
 
 **Tela de Exibição dos Carros Cadastrados:**
 
