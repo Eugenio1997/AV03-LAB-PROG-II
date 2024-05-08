@@ -4,7 +4,7 @@ Este repositório contém o código-fonte para a Avaliação 03 da disciplina de
 
 ## Descrição
 
-O projeto consiste em um sistema de gerenciamento de carros, onde os usuários podem cadastrar diferentes tipos de carros e listar os carros cadastrados.
+O projeto consiste em um sistema de gerenciamento de carros, onde os usuários podem cadastrar diferentes tipos de carros, listar os carros cadastrados e recuperar um determinado carro pelo ID.
 
 ## Tecnologias Utilizadas
 
@@ -13,11 +13,15 @@ O projeto consiste em um sistema de gerenciamento de carros, onde os usuários p
 - Prettytable 3.10.0: Biblioteca Python utilizada para formatar e exibir os dados em formato tabular.
 - Wcwidth 0.2.13: Biblioteca Python para medir a largura de caracteres de largura fixa.
 - Sqlite 3.35.5: Banco de dados embutido utilizado para armazenar os dados dos carros cadastrados.
+- Faker (versão 25.0.1) - Uma biblioteca Python que gera dados falsos.
+- python-dateutil (versão 2.9.0.post0) - Uma biblioteca Python para análise, manipulação e trabalho com datas e horas.
+- Six (versão 1.16.0) - Uma biblioteca de compatibilidade Python 2 e 3 que fornece utilitários para escrever código compatível com Python 2 e Python 3.
 
 ## Funcionalidades
 
 - Cadastrar carro: Permite aos usuários cadastrar um novo carro, fornecendo informações como tipo, modelo, ano e potência.
 - Listar carros cadastrados.
+- Recuperar carro por ID
 
 
 ## Como Usar
@@ -32,9 +36,10 @@ Ao executar o programa, siga as instruções exibidas no console para realizar a
 
 - O que deseja?
 
-  - Cadastrar um carro
-  - Listar os carros cadastrados
-  - Parar a execução do programa
+  - Cadastrar um carro (1)
+  - Listar os carros cadastrados (2)
+  - Exibir carro pelo ID (3)
+  - Parar a execução do programa (4)
 
 **Tela de Cadastrar Carro:**
 
@@ -71,6 +76,20 @@ Ao executar o programa, siga as instruções exibidas no console para realizar a
 | Coupé         | 2022| 2                    | 250 hp   |
 | Convertible   | 2023| 2                    | 220 hp   |
 | Pickup Truck  | 2024| 4                    | 300 hp   |
+
+
+**Tela de Recuperação de Carro por ID:**
+
+  - Qual é o ID do carro que deseja visualizar ?
+
+    - <Entrada-do-usuário>
+
+**Tela de Exibição do Carro Cadastrado cujo ID é -ID-INSERIDO-PELO-USUARIO-:**
+
+| Tipo          | Ano | Quantidade de Portas | Potência |
+|---------------|-----|----------------------|----------|
+| Sedan         | 2022| 4                    | 180 hp   |
+
 
 ## Contribuição
 
