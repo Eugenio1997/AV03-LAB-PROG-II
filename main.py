@@ -1,4 +1,4 @@
-from src.car.display import display_all_cars
+from src.car.display import display_all_cars, display_car_by_id
 from database.seeder import seeder
 from database.connection import open_connection
 from src.interface.user_interface import main_menu
@@ -15,6 +15,8 @@ def handle_option(option: str) -> bool:
         register_car(conn, cursor)
     elif option == Menu.DISPLAY_ALL_CARS.value:
         display_all_cars(conn, cursor)
+    elif option == Menu.DISPLAY_CAR_BY_ID.value:
+        display_car_by_id(conn, cursor)
     elif option == Menu.EXIT.value:
         print("\n---------------- Agradecemos por usar o nosso sistema ----------------\n")
         return False
