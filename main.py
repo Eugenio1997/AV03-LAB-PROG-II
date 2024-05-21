@@ -1,3 +1,4 @@
+from src.car.edit import edit_car_by_id
 from src.car.delete import delete_car_by_id
 from src.car.display import display_all_cars, display_car_by_id
 from database.seeder import seeder
@@ -20,6 +21,8 @@ def handle_option(option: str) -> bool:
         display_car_by_id(conn, cursor)
     elif option == Menu.DELETE_CAR_BY_ID.value:
         delete_car_by_id(cursor, conn)
+    elif option == Menu.EDIT_CAR_BY_ID.value:
+        edit_car_by_id(cursor, conn)
     elif option == Menu.EXIT.value:
         print("\n---------------- Agradecemos por usar o nosso sistema ----------------\n")
         return False
