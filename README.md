@@ -4,7 +4,16 @@ Este repositório contém o código-fonte para a Avaliação 03 da disciplina de
 
 ## Descrição
 
-O projeto consiste em um sistema de gerenciamento de carros, onde os usuários podem cadastrar diferentes tipos de carros, listar os carros cadastrados e recuperar um determinado carro pelo ID.
+Aplicação de gerenciamento de vendas de carros. A aplicação utiliza um banco de dados SQLite para armazenar informações sobre usuários, carros, pedidos e itens de pedido.
+
+Os usuários são registrados na tabela de usuários com detalhes como nome, email e senha (hash). Eles podem fazer pedidos de carros, que são registrados na tabela de pedidos, contendo informações como o ID do usuário que fez o pedido, o status do pedido (pendente, concluído ou cancelado), o preço total e a quantidade total de carros no pedido.
+
+Os carros disponíveis para compra são registrados na tabela de carros, com detalhes como tipo de carro, número de portas, potência, preço e ano de fabricação. Cada pedido pode conter vários itens de pedido, registrados na tabela de itens de linha, onde cada item de linha está associado a um pedido e a um carro, e contém a quantidade de carros solicitados e o preço total para esse item.
+
+Além disso, há uma tabela de configuração que controla se o banco de dados foi inicialmente populado com dados falsos. Isso indica que a aplicação pode ser usada tanto para fins de desenvolvimento quanto de produção.
+
+Em resumo, o sistema fornece uma plataforma para os usuários navegarem, fazerem pedidos de carros e administrarem suas compras.
+
 
 ## Tecnologias Utilizadas
 
@@ -16,12 +25,6 @@ O projeto consiste em um sistema de gerenciamento de carros, onde os usuários p
 - Faker (versão 25.0.1) - Uma biblioteca Python que gera dados falsos.
 - python-dateutil (versão 2.9.0.post0) - Uma biblioteca Python para análise, manipulação e trabalho com datas e horas.
 - Six (versão 1.16.0) - Uma biblioteca de compatibilidade Python 2 e 3 que fornece utilitários para escrever código compatível com Python 2 e Python 3.
-
-## Funcionalidades
-
-- Cadastrar carro: Permite aos usuários cadastrar um novo carro, fornecendo informações como tipo, modelo, ano e potência.
-- Listar carros cadastrados.
-- Recuperar carro por ID
 
 ## Instalação
 
@@ -38,72 +41,6 @@ O projeto consiste em um sistema de gerenciamento de carros, onde os usuários p
 
    - python main.py
 
-## Como Usar
-
-Ao executar o programa, siga as instruções exibidas no console para realizar as seguintes operações:
-
-
-**Tela do Menu Principal**
-
-
------------- Bem vindo ao Carfolio ------------
-
-- O que deseja?
-
-  - Cadastrar um carro (1)
-  - Listar os carros cadastrados (2)
-  - Exibir carro pelo ID (3)
-  - Parar a execução do programa (4)
-
-**Tela de Cadastrar Carro:**
-
------------- Realizando o cadastro de um novo carro ------------
-
-1- Qual é o tipo do carro ?
-
-  - Sedan (1)
-  - Hatchback (2)
-  - SUV (3)
-  - Picape (4)
-  - Minivan (5)
-  - Esportivo (6)
-
-2- Qual é a potência do carro ?
-  
-  - <Entrada-do-usuário>
-
-3- Qual é o ano do carro ?
-
-  - <Entrada-do-usuário>
-
-4- Quantas portas o carro possui ?
-
-  - <Entrada-do-usuário>
-
-**Tela de Exibição dos Carros Cadastrados:**
-
-| Tipo          | Ano | Quantidade de Portas | Potência |
-|---------------|-----|----------------------|----------|
-| Sedan         | 2022| 4                    | 180 hp   |
-| Hatchback     | 2023| 5                    | 150 hp   |
-| SUV           | 2024| 4                    | 200 hp   |
-| Coupé         | 2022| 2                    | 250 hp   |
-| Convertible   | 2023| 2                    | 220 hp   |
-| Pickup Truck  | 2024| 4                    | 300 hp   |
-
-
-**Tela de Recuperação de Carro por ID:**
-
-  - Qual é o ID do carro que deseja visualizar ?
-
-    - <Entrada-do-usuário>
-
-**Tela de Exibição do Carro Cadastrado cujo ID é -ID-INSERIDO-PELO-USUARIO-:**
-
-| Tipo          | Ano | Quantidade de Portas | Potência |
-|---------------|-----|----------------------|----------|
-| Sedan         | 2022| 4                    | 180 hp   |
-
 
 ## Contribuição
 
@@ -112,7 +49,6 @@ Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests c
 ## Colaboradores
 
 - [Eugenio Lopes](https://github.com/Eugenio1997).
-
 
 ## Licença
 
