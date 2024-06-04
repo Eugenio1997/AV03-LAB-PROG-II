@@ -1,11 +1,10 @@
-
-
 def show_main_menu() -> int:
     print("\n1. Registrar")
     print("2. Autenticar")
     print("3. Parar execucao do programa")
     option = int(input("Escolha uma opção: "))
     return option
+
 
 def show_authenticated_menu():
     print("\nBem-vindo!")
@@ -15,6 +14,7 @@ def show_authenticated_menu():
     print("4. Logout")
     option = int(input("Escolha uma opção: "))
     return option
+
 
 def show_shopping_cart_menu():
     print("\n1. Adicionar item ao carrinho")
@@ -28,7 +28,8 @@ def show_shopping_cart_menu():
     option = int(input("Escolha uma opção: "))
     return option
 
-def show_car_menu():
+
+def show_admin_menu():
     print("\n1. Registrar novo carro")
     print("2. Visualizar todos os carros")
     print("3. Visualizar carro por ID")

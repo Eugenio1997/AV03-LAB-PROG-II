@@ -1,13 +1,17 @@
 from src.order.order import make_order
 from src.enums.auth_menu import Auth_Menu
-from src.enums.not_auth_menu import Not_Auth_Menu
+from src.enums.unauth_menu import Unauth_Menu
 from src.car.edit import edit_car_by_id
 from src.car.delete import delete_car_by_id
 from src.car.display import display_all_cars, display_car_by_id
 from database.seeder import seeder
 from database.connection import open_connection
-from src.interface.user_interface import show_authenticated_menu, show_car_menu, show_main_menu
-from src.enums.cars_menu import Cars_Menu
+from src.interface.user_interface import (
+    show_authenticated_menu,
+    show_admin_menu,
+    show_main_menu,
+)
+from src.enums.admin_menu import Admin_Menu
 from src.car.registry import register_car
 from src.user.login import (
     authenticate_user,
@@ -26,10 +30,9 @@ def display_menu() -> int:
         get_authentication_status()
         and get_authenticated_user_email() == get_admin_user_email()
     ):
-        return show_car_menu()
+        return show_admin_menu()
     elif get_authentication_status():
         return show_authenticated_menu()
-    
 
 
 def handle_option(option: str) -> bool:
@@ -37,11 +40,11 @@ def handle_option(option: str) -> bool:
     Função para lidar com a opção escolhida pelo usuário
     """
     if not get_authentication_status():
-        if option == Not_Auth_Menu.REGISTER.value:
+        if option == Unauth_Menu.REGISTER.value:
             register_user(conn, cursor)
-        elif option == Not_Auth_Menu.LOGIN.value:
+        elif option == Unauth_Menu.LOGIN.value:
             authenticate_user(conn, cursor)
-        elif option == Not_Auth_Menu.EXIT.value:
+        elif option == Unauth_Menu.EXIT.value:
             print("\nPrograma encerrado\n")
             return False
         else:
@@ -55,6 +58,8 @@ def handle_option(option: str) -> bool:
                 return back_to_main_menu
         elif option == Auth_Menu.DISPLAY_CAR_BY_ID.value:
             display_car_by_id(conn, cursor)
+        elif option == Auth_Menu.PROVA.value:
+            print("Prova")
         elif option == Auth_Menu.LOGOUT.value:
             logout()
         else:
@@ -63,17 +68,17 @@ def handle_option(option: str) -> bool:
         get_authentication_status()
         and get_authenticated_user_email() == get_admin_user_email()
     ):
-        if option == Cars_Menu.REGISTRY_NEW_CAR.value:
+        if option == Admin_Menu.REGISTRY_NEW_CAR.value:
             register_car(conn, cursor)
-        elif option == Cars_Menu.DISPLAY_ALL_CARS.value:
+        elif option == Admin_Menu.DISPLAY_ALL_CARS.value:
             display_all_cars(conn, cursor)
-        elif option == Cars_Menu.DISPLAY_CAR_BY_ID.value:
+        elif option == Admin_Menu.DISPLAY_CAR_BY_ID.value:
             display_car_by_id(conn, cursor)
-        elif option == Cars_Menu.DELETE_CAR_BY_ID.value:
+        elif option == Admin_Menu.DELETE_CAR_BY_ID.value:
             delete_car_by_id(cursor, conn)
-        elif option == Cars_Menu.EDIT_CAR_BY_ID.value:
+        elif option == Admin_Menu.EDIT_CAR_BY_ID.value:
             edit_car_by_id(cursor, conn)
-        elif option == Cars_Menu.EXIT.value:
+        elif option == Admin_Menu.EXIT.value:
             print(
                 "\n---------------- Agradecemos por usar o nosso sistema ----------------\n"
             )
