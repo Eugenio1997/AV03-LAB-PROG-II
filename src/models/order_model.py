@@ -7,6 +7,7 @@ Order = namedtuple(
     [
         "id",
         "user_id",
+        "status",
         "total_price",
         "total_quantity",
         "created_at",
@@ -22,4 +23,4 @@ def create_order(
     Retorna um objeto Order com os dados passados como argumentos
     """
 
-    return Order("", 0, 0, datetime.now(), datetime.now())
+    return Order("", "", "", 0.0, 0, datetime.now(), datetime.now())
