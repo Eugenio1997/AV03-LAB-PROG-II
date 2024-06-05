@@ -58,8 +58,6 @@ def handle_option(option: str) -> bool:
                 return back_to_main_menu
         elif option == Auth_Menu.DISPLAY_CAR_BY_ID.value:
             display_car_by_id(conn, cursor)
-        elif option == Auth_Menu.PROVA.value:
-            print("Prova")
         elif option == Auth_Menu.LOGOUT.value:
             logout()
         else:

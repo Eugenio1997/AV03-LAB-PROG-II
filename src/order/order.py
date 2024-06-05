@@ -1,4 +1,3 @@
-# src/orders/operations.py
 
 from datetime import datetime
 
@@ -11,7 +10,7 @@ from src.enums.shopping_cart_menu import Shopping_Cart_Menu
 from src.interface.user_interface import show_shopping_cart_menu
 from src.user.login import get_authenticated_user_email
 
-# Define a global list to store items
+
 items = []
 
 
@@ -60,7 +59,7 @@ def add_item_to_cart(conn, cursor):
         )
         last_order_id = cursor.fetchone()
 
-        if last_order_id:
+        if last_order_id: # Se o usuário tiver um pedido anterior, use o mesmo pedido
             order_id = last_order_id[0]
         else:
             # Se o usuário não tiver nenhum pedido anterior, crie um novo pedido
@@ -73,10 +72,8 @@ def add_item_to_cart(conn, cursor):
         carDb = cursor.execute("SELECT * FROM cars WHERE id = ?", (car_id,)).fetchone()
         quantity = int(input("Digite a quantidade: "))
         
-        # Flag to check if the car is already in the cart
         car_found = False
 
-        # Check if the car_id already exists in the cart
         for item in items:
             if item['car_id'] == car_id:
                 item['quantity'] = quantity
@@ -149,7 +146,7 @@ def add_item_to_cart(conn, cursor):
         return True
 
 
-    elif option == Shopping_Cart_Menu.VIEW_CONFIRMED_ORDERS.value:
+    elif option == Shopping_Cart_Menu.VIEW_ALL_COMPLETED_ORDERS.value:
         logged_in_user = get_logged_in_user(cursor)
         logged_in_user_orders = cursor.execute(
             "SELECT * FROM orders WHERE user_id = ? AND status = ?",
@@ -160,20 +157,22 @@ def add_item_to_cart(conn, cursor):
                 Order(
                     id=order[0],
                     user_id=order[1],
-                    total_price=order[2],
-                    total_quantity=order[3],
-                    created_at=order[4],
-                    updated_at=order[5],
+                    status=order[2],
+                    total_price=order[3],
+                    total_quantity=order[4],
+                    created_at=order[5],
+                    updated_at=order[6],
                 )
                 for order in logged_in_user_orders
             ]
 
-            table = define_line_item_table_header()
+            table = define_order_table_header()
             [
                 table.add_row(
                     [
                         order.id,
                         order.user_id,
+                        order.status,
                         order.total_price,
                         order.total_quantity,
                         order.created_at,
@@ -188,16 +187,15 @@ def add_item_to_cart(conn, cursor):
             print("\n ----- Nenhum pedido confirmado encontrado. -----\n")
         return True
 
+    elif option == Shopping_Cart_Menu.VIEW_LAST_COMPLETED_ORDER.value:
+        return retrive_last_order(cursor)
 
     elif option == Shopping_Cart_Menu.FINISH_PURCHASE.value:
         insert_line_items_into_database(cursor, conn)
         return insert_order_into_database(cursor, conn, order_id)
-    
-    elif option == Shopping_Cart_Menu.RETRIEVE_LAST_ORDER.value:
-        return retrive_last_order(cursor)
 
     elif option == Shopping_Cart_Menu.CANCEL_PURCHASE.value:
-        items.clear()  # Limpa a lista de items
+        items.clear()
         print("\n ----- Compra cancelada com sucesso! -----\n")
         print("\n ----- Sacola vazia. Por favor, adicione items à sacola. -----\n")
         return True
@@ -226,23 +224,19 @@ def check_if_latest_finished_purchase(cursor):
     cursor.execute("SELECT id FROM users WHERE email = ?", (authenticated_user_email,))
     user_id = cursor.fetchone()[0]
     
-    # Fetch the last order made by this customer
     cursor.execute(
         "SELECT id FROM orders WHERE user_id = ? ORDER BY id DESC LIMIT 1",
         (user_id,),
     )
     order_id = cursor.fetchone()
-    if order_id:
-        # Fetch the status of the last order
-        cursor.execute(
-            "SELECT status FROM orders WHERE id = ?", (order_id[0],)
-        )
-        status = cursor.fetchone()[0]
 
-        if status == Order_Status.CONFIRMED.value:
-            return True
-        else:
-            return False
+    cursor.execute(
+        "SELECT status FROM orders WHERE id = ?", (order_id[0],)
+    )
+    status = cursor.fetchone()[0]
+
+    if status == Order_Status.CONFIRMED.value:
+        return True
     else:
         return False
 
