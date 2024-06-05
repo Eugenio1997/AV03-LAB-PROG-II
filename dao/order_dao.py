@@ -9,11 +9,11 @@ def create_new_order_on_orders_table(conn, cursor, is_make_order=True):
 
     # Fetch the user ID from the database based on the authenticated user's email
     cursor.execute("SELECT id FROM users WHERE email = ?", (authenticated_user_email,))
-    customer_id = cursor.fetchone()
-    if customer_id is not None and is_make_order is True:
+    user_id = cursor.fetchone()
+    if user_id is not None and is_make_order is True:
         cursor.execute(
             "INSERT INTO orders (user_id, status, total_price, total_quantity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
-            (customer_id[0], Order_Status.PENDING.value, 0, 0, datetime.now(), datetime.now()),
+            (user_id[0], Order_Status.PENDING.value, 0, 0, datetime.now(), datetime.now()),
         )
         order_id = cursor.lastrowid
         conn.commit()
