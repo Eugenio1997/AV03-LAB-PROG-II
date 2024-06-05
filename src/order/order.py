@@ -46,14 +46,25 @@ def add_item_to_cart(conn, cursor):
         
     option = show_shopping_cart_menu()
     
-    if check_if_latest_finished_purchase(cursor) and option not in [
-            Shopping_Cart_Menu.VIEW_CONFIRMED_ORDERS.value,
-            Shopping_Cart_Menu.DISPLAY_CART.value,
-            Shopping_Cart_Menu.ADD_ITEM.value,
-        ]:
+    if check_if_latest_finished_purchase(cursor):
         order_id = create_new_order_on_orders_table(conn, cursor)
     else:
-        order_id = cursor.execute("SELECT id FROM orders ORDER BY id DESC LIMIT 1").fetchone()[0]
+        authenticated_user_email = get_authenticated_user_email()
+
+        cursor.execute("SELECT id FROM users WHERE email = ?", (authenticated_user_email,))
+        user_id = cursor.fetchone()[0]
+
+        cursor.execute(
+            "SELECT id FROM orders WHERE user_id = ? ORDER BY id DESC LIMIT 1",
+            (user_id,),
+        )
+        last_order_id = cursor.fetchone()
+
+        if last_order_id:
+            order_id = last_order_id[0]
+        else:
+            # Se o usuário não tiver nenhum pedido anterior, crie um novo pedido
+            order_id = create_new_order_on_orders_table(conn, cursor)
 
     if option == Shopping_Cart_Menu.ADD_ITEM.value:
         print("\n ------ Adicionando um carro ao carrinho de compras ------\n")
@@ -211,14 +222,29 @@ def delete_current_order(conn, cursor, order_id):
 
 
 def check_if_latest_finished_purchase(cursor):
-    last_order_id_result = cursor.execute(
-        "SELECT id FROM orders WHERE status = ? ORDER BY id DESC LIMIT 1",
-        (Order_Status.CONFIRMED.value,),
-    ).fetchone()
-    if last_order_id_result:
-        last_order_id = last_order_id_result[0]
-        return True
-    return False
+    authenticated_user_email = get_authenticated_user_email()
+    cursor.execute("SELECT id FROM users WHERE email = ?", (authenticated_user_email,))
+    user_id = cursor.fetchone()[0]
+    
+    # Fetch the last order made by this customer
+    cursor.execute(
+        "SELECT id FROM orders WHERE user_id = ? ORDER BY id DESC LIMIT 1",
+        (user_id,),
+    )
+    order_id = cursor.fetchone()
+    if order_id:
+        # Fetch the status of the last order
+        cursor.execute(
+            "SELECT status FROM orders WHERE id = ?", (order_id[0],)
+        )
+        status = cursor.fetchone()[0]
+
+        if status == Order_Status.CONFIRMED.value:
+            return True
+        else:
+            return False
+    else:
+        return False
 
 
 def get_logged_in_user(cursor):
