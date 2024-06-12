@@ -14,6 +14,10 @@ Além disso, há uma tabela de configuração que controla se o banco de dados f
 
 Em resumo, o sistema fornece uma plataforma para os usuários navegarem, fazerem pedidos de carros e administrarem suas compras.
 
+## DER - Diagrama Entidade Relacionamento
+<img width="561" alt="Screenshot 2024-06-12 at 14 58 43" src="https://github.com/Eugenio1997/AV03-LAB-PROG-II/assets/25560218/ff6ba035-1608-4d95-a4f1-7b363e23c4d6">
+
+
 
 ## Tecnologias Utilizadas
 
